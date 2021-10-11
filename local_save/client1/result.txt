@@ -1,0 +1,453 @@
+20/07/2021
+Process collected information
+data split end. (5000, 79) (500, 79) (5000,) (500,) (4400, 79)
+ Test data split end. (5000, 79) (4400, 79) (5000,) (4400,)
+AdaBoostClassifier(algorithm='SAMME',
+                   base_estimator=DecisionTreeClassifier(max_depth=2,
+                                                         min_samples_leaf=5,
+                                                         min_samples_split=20),
+                   learning_rate=0.08, n_estimators=500)
+Benchmark score trained by target: 0.6797727272727273
+params initial finished.
+Accuracy score for iteration 0: 0.8906818181818181
+Results: [0. 0. 0. ... 5. 5. 5.]
+Num of misclassified instances in the target:  52.0
+Error rate for iteration 0: 0.10399999999999995
+Beta_T:  0.5383873784583896
+Accuracy score for iteration 1: 0.9036363636363637
+Results: [0. 0. 0. ... 5. 5. 5.]
+Num of misclassified instances in the target:  45.0
+Error rate for iteration 1: 0.14354407380669953
+Beta_T:  0.4465401839551278
+Accuracy score for iteration 2: 0.9363636363636364
+Results: [0. 0. 0. ... 5. 5. 5.]
+Num of misclassified instances in the target:  19.0
+Error rate for iteration 2: 0.08475168215542979
+Beta_T:  0.5948674548935885
+Accuracy score for iteration 3: 0.9340909090909091
+Results: [0. 0. 0. ... 5. 5. 5.]
+Num of misclassified instances in the target:  20.0
+Error rate for iteration 3: 0.13431859582070654
+Beta_T:  0.4658255971465422
+Accuracy score for iteration 4: 0.9475
+Results: [0. 0. 0. ... 5. 5. 5.]
+Num of misclassified instances in the target:  6.0
+Error rate for iteration 4: 0.04663607363965593
+Beta_T:  0.7544055877796491
+Accuracy score for iteration 5: 0.9513636363636364
+Results: [0. 0. 0. ... 5. 5. 5.]
+Num of misclassified instances in the target:  3.0
+Error rate for iteration 5: 0.011173247366341683
+Beta_T:  1.1207492122553595
+Accuracy score for iteration 6: 0.9527272727272728
+Results: [0. 0. 0. ... 5. 5. 5.]
+Num of misclassified instances in the target:  2.0
+Error rate for iteration 6: 0.01579078183226806
+Beta_T:  1.0331030382765116
+Accuracy score for iteration 7: 0.9536363636363636
+Results: [0. 0. 0. ... 5. 5. 5.]
+Num of misclassified instances in the target:  2.0
+Error rate for iteration 7: 0.03607254349031451
+Beta_T:  0.8213710078426981
+Accuracy score for iteration 8: 0.9522727272727273
+Results: [0. 0. 0. ... 5. 5. 5.]
+Num of misclassified instances in the target:  4.0
+Error rate for iteration 8: 0.005153957831622639
+Beta_T:  1.3157057657951015
+Accuracy score for iteration 9: 0.9520454545454545
+Results: [0. 0. 0. ... 5. 5. 5.]
+Num of misclassified instances in the target:  2.0
+Error rate for iteration 9: 0.004840803727118304
+Beta_T:  1.3314554885876322
+Accuracy score for iteration 10: 0.9538636363636364
+Results: [0. 0. 0. ... 5. 5. 5.]
+Num of misclassified instances in the target:  1.0
+Error rate for iteration 10: 0.0012537169118853493
+Beta_T:  1.6700970267204338
+Accuracy score for iteration 11: 0.951590909090909
+Results: [0. 0. 0. ... 5. 5. 5.]
+Num of misclassified instances in the target:  2.0
+Error rate for iteration 11: 0.03765553004279733
+Beta_T:  0.8102231599258097
+Accuracy score for iteration 12: 0.9540909090909091
+Results: [0. 0. 0. ... 5. 5. 5.]
+Num of misclassified instances in the target:  1.0
+Error rate for iteration 12: 0.009211041535618913
+Beta_T:  1.1695246555366563
+Accuracy score for iteration 13: 0.9525
+Results: [0. 0. 0. ... 5. 5. 5.]
+Num of misclassified instances in the target:  1.0
+Error rate for iteration 13: 0.006200518576310134
+Beta_T:  1.2692256318657236
+Accuracy score for iteration 14: 0.9520454545454545
+Results: [0. 0. 0. ... 5. 5. 5.]
+Num of misclassified instances in the target:  0.0
+Error rate for iteration 14: 0.0
+Beta_T:  [[0.53838738 0.44654018 0.59486745 0.4658256  0.75440559 1.12074921
+  1.03310304 0.82137101 1.31570577 1.33145549 1.67009703 0.81022316
+  1.16952466 1.26922563 0.        ]]
+AdaBoostClassifier(algorithm='SAMME',
+                   base_estimator=DecisionTreeClassifier(max_depth=2,
+                                                         min_samples_leaf=5,
+                                                         min_samples_split=20),
+                   learning_rate=0.08, n_estimators=500)
+auc: 0.020462058823529423
+acc: 0.865909090909091
+
+--------------------------
+
+Process collected information
+data split end. (5000, 79) (500, 79) (5000,) (500,) (4400, 79)
+ Test data split end. (5000, 79) (4400, 79) (5000,) (4400,)
+AdaBoostClassifier(algorithm='SAMME',
+                   base_estimator=DecisionTreeClassifier(max_depth=2,
+                                                         min_samples_leaf=5,
+                                                         min_samples_split=20),
+                   learning_rate=0.08, n_estimators=500)
+Benchmark score trained by target: 0.6572727272727272
+params initial finished.
+Accuracy score for iteration 0: 0.8654545454545455
+Results: [0. 0. 0. ... 5. 5. 5.]
+Num of misclassified instances in the target:  71.0
+Error rate for iteration 0: 0.14199999999999993
+Beta_T:  0.44969426047167554
+Accuracy score for iteration 1: 0.8681818181818182
+Results: [0. 0. 0. ... 5. 5. 5.]
+Num of misclassified instances in the target:  67.0
+Error rate for iteration 1: 0.19231173122621747
+Beta_T:  0.3587646306388107
+Accuracy score for iteration 2: 0.9068181818181819
+Results: [0. 0. 0. ... 5. 5. 5.]
+Num of misclassified instances in the target:  37.0
+Error rate for iteration 2: 0.13701280969747226
+Beta_T:  0.46008135621408336
+Accuracy score for iteration 3: 0.9181818181818182
+Results: [0. 0. 0. ... 5. 5. 5.]
+Num of misclassified instances in the target:  35.0
+Error rate for iteration 3: 0.13412302145140062
+Beta_T:  0.46624634801334486
+Accuracy score for iteration 4: 0.9379545454545455
+Results: [0. 0. 0. ... 5. 5. 5.]
+Num of misclassified instances in the target:  14.0
+Error rate for iteration 4: 0.08526030429174777
+Beta_T:  0.5932326397300908
+Accuracy score for iteration 5: 0.9363636363636364
+Results: [0. 0. 0. ... 5. 5. 5.]
+Num of misclassified instances in the target:  13.0
+Error rate for iteration 5: 0.10367025375868145
+Beta_T:  0.539273285136101
+Accuracy score for iteration 6: 0.9484090909090909
+Results: [0. 0. 0. ... 5. 5. 5.]
+Num of misclassified instances in the target:  13.0
+Error rate for iteration 6: 0.056074500281954334
+Beta_T:  0.7058415186189375
+Accuracy score for iteration 7: 0.9456818181818182
+Results: [0. 0. 0. ... 5. 5. 5.]
+Num of misclassified instances in the target:  12.0
+Error rate for iteration 7: 0.06884373378473238
+Beta_T:  0.6511469756084833
+Accuracy score for iteration 8: 0.9190909090909091
+Results: [0. 0. 0. ... 5. 5. 5.]
+Num of misclassified instances in the target:  18.0
+Error rate for iteration 8: 0.043082388165098164
+Beta_T:  0.7751507528428475
+Accuracy score for iteration 9: 0.9227272727272727
+Results: [0. 0. 0. ... 5. 5. 5.]
+Num of misclassified instances in the target:  12.0
+Error rate for iteration 9: 0.06262070063586267
+Beta_T:  0.6764980244209533
+Accuracy score for iteration 10: 0.8388636363636364
+Results: [0. 0. 1. ... 5. 5. 5.]
+Num of misclassified instances in the target:  4.0
+Error rate for iteration 10: 0.011675302589922217
+Beta_T:  1.109633890968767
+Accuracy score for iteration 11: 0.8547727272727272
+Results: [0. 0. 1. ... 5. 5. 5.]
+Num of misclassified instances in the target:  0.0
+Error rate for iteration 11: 0.0
+Beta_T:  [[0.44969426 0.35876463 0.46008136 0.46624635 0.59323264 0.53927329
+  0.70584152 0.65114698 0.77515075 0.67649802 1.10963389 0.
+  0.         0.         0.        ]]
+AdaBoostClassifier(algorithm='SAMME',
+                   base_estimator=DecisionTreeClassifier(max_depth=2,
+                                                         min_samples_leaf=5,
+                                                         min_samples_split=20),
+                   learning_rate=0.08, n_estimators=500)
+auc: 0.015009852941176485
+acc: 0.9268181818181818
+
+--------------------------
+
+Process collected information
+data split end. (5000, 79) (500, 79) (5000,) (500,) (4400, 79)
+ Test data split end. (5000, 79) (4400, 79) (5000,) (4400,)
+AdaBoostClassifier(algorithm='SAMME',
+                   base_estimator=DecisionTreeClassifier(max_depth=2,
+                                                         min_samples_leaf=5,
+                                                         min_samples_split=20),
+                   learning_rate=0.08, n_estimators=500)
+Benchmark score trained by target: 0.8827272727272727
+params initial finished.
+Accuracy score for iteration 0: 0.8934090909090909
+Results: [0. 0. 0. ... 5. 0. 5.]
+Num of misclassified instances in the target:  73.0
+Error rate for iteration 0: 0.14599999999999996
+Beta_T:  0.44158114302005846
+Accuracy score for iteration 1: 0.9036363636363637
+Results: [0. 0. 0. ... 5. 0. 5.]
+Num of misclassified instances in the target:  64.0
+Error rate for iteration 1: 0.17694650281476593
+Beta_T:  0.38429343957878925
+Accuracy score for iteration 2: 0.8865909090909091
+Results: [0. 0. 0. ... 5. 0. 5.]
+Num of misclassified instances in the target:  69.0
+Error rate for iteration 2: 0.2415685089859191
+Beta_T:  0.286024839769124
+Accuracy score for iteration 3: 0.9070454545454546
+Results: [0. 0. 0. ... 5. 0. 5.]
+Num of misclassified instances in the target:  35.0
+Error rate for iteration 3: 0.13387755784583502
+Beta_T:  0.466775162981684
+Accuracy score for iteration 4: 0.9111363636363636
+Results: [0. 0. 0. ... 5. 5. 5.]
+Num of misclassified instances in the target:  22.0
+Error rate for iteration 4: 0.10299601393893884
+Beta_T:  0.5410925044898471
+Accuracy score for iteration 5: 0.9427272727272727
+Results: [0. 0. 0. ... 5. 5. 5.]
+Num of misclassified instances in the target:  15.0
+Error rate for iteration 5: 0.08062014659188478
+Beta_T:  0.6084876985944049
+Accuracy score for iteration 6: 0.9356818181818182
+Results: [0. 0. 0. ... 5. 5. 5.]
+Num of misclassified instances in the target:  9.0
+Error rate for iteration 6: 0.0677670010437284
+Beta_T:  0.6553768540315574
+Accuracy score for iteration 7: 0.9272727272727272
+Results: [0. 0. 0. ... 5. 5. 5.]
+Num of misclassified instances in the target:  10.0
+Error rate for iteration 7: 0.037915847235275746
+Beta_T:  0.8084331915435391
+Accuracy score for iteration 8: 0.9204545454545454
+Results: [0. 0. 0. ... 5. 5. 5.]
+Num of misclassified instances in the target:  10.0
+Error rate for iteration 8: 0.055007082130033094
+Beta_T:  0.7109288725511805
+Accuracy score for iteration 9: 0.93
+Results: [0. 0. 0. ... 5. 5. 5.]
+Num of misclassified instances in the target:  10.0
+Error rate for iteration 9: 0.052040936821154585
+Beta_T:  0.7255701658989466
+Accuracy score for iteration 10: 0.9386363636363636
+Results: [0. 0. 0. ... 5. 5. 5.]
+Num of misclassified instances in the target:  4.0
+Error rate for iteration 10: 0.060107677526176496
+Beta_T:  0.6874069347251687
+Accuracy score for iteration 11: 0.9372727272727273
+Results: [0. 0. 0. ... 5. 5. 5.]
+Num of misclassified instances in the target:  10.0
+Error rate for iteration 11: 0.029570222804423136
+Beta_T:  0.8727427934989801
+Accuracy score for iteration 12: 0.9415909090909091
+Results: [0. 0. 0. ... 5. 5. 5.]
+Num of misclassified instances in the target:  4.0
+Error rate for iteration 12: 0.01760092818270286
+Beta_T:  1.005511493568488
+Accuracy score for iteration 13: 0.9368181818181818
+Results: [0. 0. 0. ... 5. 5. 5.]
+Num of misclassified instances in the target:  2.0
+Error rate for iteration 13: 0.0027763328605220493
+Beta_T:  1.470961035744211
+Accuracy score for iteration 14: 0.8527272727272728
+Results: [0. 0. 1. ... 5. 5. 5.]
+Num of misclassified instances in the target:  6.0
+Error rate for iteration 14: 0.01969741503324527
+Beta_T:  0.9768434684076012
+Beta_T:  [[0.44158114 0.38429344 0.28602484 0.46677516 0.5410925  0.6084877
+  0.65537685 0.80843319 0.71092887 0.72557017 0.68740693 0.87274279
+  1.00551149 1.47096104 0.97684347]]
+AdaBoostClassifier(algorithm='SAMME',
+                   base_estimator=DecisionTreeClassifier(max_depth=2,
+                                                         min_samples_leaf=5,
+                                                         min_samples_split=20),
+                   learning_rate=0.08, n_estimators=500)
+auc: 0.009916323529411748
+acc: 0.9302272727272727
+
+--------------------------
+Process collected information
+data split end. (5000, 79) (500, 79) (5000,) (500,) (4400, 79)
+ Test data split end. (5000, 79) (4400, 79) (5000,) (4400,)
+AdaBoostClassifier(algorithm='SAMME',
+                   base_estimator=DecisionTreeClassifier(max_depth=2,
+                                                         min_samples_leaf=5,
+                                                         min_samples_split=20),
+                   learning_rate=0.08, n_estimators=500)
+Benchmark score trained by target: 0.8879545454545454
+params initial finished.
+Accuracy score for iteration 0: 0.8634090909090909
+Results: [0. 0. 0. ... 5. 5. 5.]
+Num of misclassified instances in the target:  73.0
+Error rate for iteration 0: 0.14599999999999994
+Beta_T:  0.4415811430200585
+Accuracy score for iteration 1: 0.9
+Results: [0. 0. 0. ... 5. 5. 5.]
+Num of misclassified instances in the target:  49.0
+Error rate for iteration 1: 0.13687085247456002
+Beta_T:  0.46038163270979027
+Accuracy score for iteration 2: 0.9113636363636364
+Results: [0. 0. 0. ... 5. 5. 5.]
+Num of misclassified instances in the target:  48.0
+Error rate for iteration 2: 0.1840610563300224
+Beta_T:  0.37226799944598965
+Accuracy score for iteration 3: 0.9186363636363636
+Results: [0. 0. 0. ... 5. 5. 5.]
+Num of misclassified instances in the target:  37.0
+Error rate for iteration 3: 0.199851918311336
+Beta_T:  0.3468050321956159
+Accuracy score for iteration 4: 0.9447727272727273
+Results: [0. 0. 0. ... 5. 5. 5.]
+Num of misclassified instances in the target:  29.0
+Error rate for iteration 4: 0.14586297109132723
+Beta_T:  0.4418560023729877
+Accuracy score for iteration 5: 0.9513636363636364
+Results: [0. 0. 0. ... 5. 5. 5.]
+Num of misclassified instances in the target:  9.0
+Error rate for iteration 5: 0.06054239251765134
+Beta_T:  0.6854897182452067
+Accuracy score for iteration 6: 0.9470454545454545
+Results: [0. 0. 0. ... 5. 5. 5.]
+Num of misclassified instances in the target:  8.0
+Error rate for iteration 6: 0.058749001651679095
+Beta_T:  0.6934839200146984
+Accuracy score for iteration 7: 0.9431818181818182
+Results: [0. 0. 0. ... 5. 5. 5.]
+Num of misclassified instances in the target:  11.0
+Error rate for iteration 7: 0.04856146553812779
+Beta_T:  0.743786189960027
+Accuracy score for iteration 8: 0.9490909090909091
+Results: [0. 0. 0. ... 5. 5. 5.]
+Num of misclassified instances in the target:  6.0
+Error rate for iteration 8: 0.029571492336419196
+Beta_T:  0.8727317334790381
+Accuracy score for iteration 9: 0.946590909090909
+Results: [0. 0. 0. ... 5. 5. 5.]
+Num of misclassified instances in the target:  4.0
+Error rate for iteration 9: 0.01658160258769781
+Beta_T:  1.020685214962106
+Accuracy score for iteration 10: 0.9479545454545455
+Results: [0. 0. 0. ... 5. 5. 5.]
+Num of misclassified instances in the target:  5.0
+Error rate for iteration 10: 0.013988001960395515
+Beta_T:  1.063867140894067
+Accuracy score for iteration 11: 0.9427272727272727
+Results: [0. 0. 0. ... 5. 5. 5.]
+Num of misclassified instances in the target:  4.0
+Error rate for iteration 11: 0.004732160990916036
+Beta_T:  1.3371574796455543
+Accuracy score for iteration 12: 0.9481818181818182
+Results: [0. 0. 0. ... 5. 5. 5.]
+Num of misclassified instances in the target:  9.0
+Error rate for iteration 12: 0.018635335553518546
+Beta_T:  0.9909711445897484
+Accuracy score for iteration 13: 0.9518181818181818
+Results: [0. 0. 0. ... 5. 5. 5.]
+Num of misclassified instances in the target:  0.0
+Error rate for iteration 13: 0.0
+Beta_T:  [[0.44158114 0.46038163 0.372268   0.34680503 0.441856   0.68548972
+  0.69348392 0.74378619 0.87273173 1.02068521 1.06386714 1.33715748
+  0.99097114 0.         0.        ]]
+AdaBoostClassifier(algorithm='SAMME',
+                   base_estimator=DecisionTreeClassifier(max_depth=2,
+                                                         min_samples_leaf=5,
+                                                         min_samples_split=20),
+                   learning_rate=0.08, n_estimators=500)
+auc: 0.01280588235294115
+acc: 0.9290909090909091
+
+
+
+
+SERVER - one workflow
+Client1: 125
+Client2: 234
+--------------------------
+Create model & send to devices
+Model Initialization
+Score for initialized model: 0.7182
+DDoS score: 0.622
+Bot score: 0.3952
+Port score: 0.599
+BruteForce score: 0.3942
+Inf score: 0.3822
+****************
+Sent model to all clients
+----------------------------------------------------
+Model aggregation started.
+Overall score from client1: 0.7572
+Overall score from client2: 0.818
+AdaBoostClassifier(algorithm='SAMME',
+                   base_estimator=DecisionTreeClassifier(max_depth=2,
+                                                         min_samples_leaf=5,
+                                                         min_samples_split=20),
+                   learning_rate=0.8, n_estimators=500)
+Overall score from updated model: 0.715
+m1: 
+DDoS score: 0.962
+Bot score: 0.9432
+Port score: 0.9594
+BruteForce score: 0.2796
+Inf score: 0.4094
+****************
+None
+m2: 
+DDoS score: 0.7454
+Bot score: 0.943
+Port score: 0.9466
+BruteForce score: 0.9742
+Inf score: 0.6336
+****************
+None
+updated: 
+DDoS score: 0.2744
+Bot score: 0.9906
+Port score: 0.9936
+BruteForce score: 0.955
+Inf score: 0.6266
+****************
+None
+--------------------------
+Model aggregation started.
+Overall score from client1: 0.7846
+Overall score from client2: 0.8662
+AdaBoostClassifier(algorithm='SAMME',
+                   base_estimator=DecisionTreeClassifier(max_depth=2,
+                                                         min_samples_leaf=5,
+                                                         min_samples_split=20),
+                   learning_rate=0.8, n_estimators=500)
+Overall score from updated model: 0.829
+m1: 
+DDoS score: 0.9676
+Bot score: 0.9732
+Port score: 0.9824
+BruteForce score: 0.4588
+Inf score: 0.4782
+****************
+None
+m2: 
+DDoS score: 0.84
+Bot score: 0.9598
+Port score: 0.9732
+BruteForce score: 0.9678
+Inf score: 0.6484
+****************
+None
+updated: 
+DDoS score: 0.7978
+Bot score: 0.8332
+Port score: 0.8536
+BruteForce score: 0.8296
+Inf score: 0.5752
+****************
+None
+--------------------------

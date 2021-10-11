@@ -1,0 +1,6 @@
+Normal--0
+DDoS/HTTP-DDOS--1
+Botnet--2
+PortScan--3
+SSH-BruteForce/FTP-BruteForce --4
+Infilteration --5
