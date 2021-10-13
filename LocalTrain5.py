@@ -22,7 +22,7 @@ Port = 'Port.csv'  # 2000 normal + 3000 Port
 Bruf = 'Bruf.csv'  # 3000 normal + 2000 BruF
 Infi = 'Inf.csv'  # 3000 normal + 2000 Infi
 Test = 'Test_234.csv'  # 2500+1000+1000+1000+1000+1000 all six types, change num of class when create this dataset
-LocalData = 'local_234.csv'
+LocalData = 'local5.csv'
 
 
 def append_feature(dataframe, istest):
