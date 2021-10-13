@@ -14,6 +14,10 @@ import numpy
 import os
 from sklearn.ensemble import AdaBoostClassifier
 
+from sklearn.pipeline import make_pipeline
+from sklearn.preprocessing import StandardScaler
+from sklearn.svm import SVC
+
 """
 ********************
 -- THE CONTRIBUTE --
@@ -204,9 +208,8 @@ CMD7: Stop all
             # print('Send model to all clients')
             else:
                 print("Model Initialization")
-                clf = AdaBoostClassifier(tree.DecisionTreeClassifier(max_depth=2,
-                                                                     min_samples_split=20,
-                                                                     min_samples_leaf=5),
+                svm_pipe = make_pipeline(StandardScaler(), SVC())
+                clf = AdaBoostClassifier(svm_pipe,
                                          algorithm="SAMME",
                                          n_estimators=500, learning_rate=0.5)
 
