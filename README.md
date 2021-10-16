@@ -27,7 +27,7 @@ containing 100 base_estimators, run 30 iterations on each device, each round.
 * __CLIENT__ - 3 to print any received data 
 * __CLIENT__ - 1 to start training TrAdaBoost _OR_  __CLIENT__ - 4 to start training AdaBoost (_NO TRANSFER_)
 * __SERVER__ - 3 to send message to __CLIENT__ in case client not return
-* __CLIENT__ - 2 for send updated model back to server (*pickle file*)
+* __CLIENT__ - 2 for send updated model back to server (:cucumber: *pickle file*)
 * __SERVER__ - 4 to re-allocate public samples from database (__IF__: use sample weights for data re-arrange; __ELSE__: skip this)
 * __SERVER__ - 5 for model aggregation (__FedAvg__ *or* __Rank__), and return results using multiple binary datasets to test, as well as the overall score
 * __SERVER__ - 6 for aggregation with __Weighted Voting__
