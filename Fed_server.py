@@ -288,7 +288,7 @@ CMD7: Stop all
                 print("Overall score from client2: {score}".format(score=m2.score(X, Y)))
                 print("Overall score from client3: {score}".format(score=m3.score(X, Y)))
                 print("Overall score from client4: {score}".format(score=m4.score(X, Y)))
-                # updated_model = agg.FedTestAgg(X, Y, m0, m1, m2, m3, m4) -> 60/75
+                # updated_model = agg.FedTestAgg(X, Y, m0, m1, m2, m3, m4)
                 updated_model = agg.FedAggDT(m0, m1, m2, m3, m4)
                 '''
                 This should be the final output, no need for 500 estimators. 
