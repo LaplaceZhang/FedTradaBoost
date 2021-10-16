@@ -40,7 +40,7 @@ containing 100 base_estimators, run 30 iterations on each device, each round.
 
 ***
 
-### PAPER SUPPORTS
+### PAPER SUPPORT
 
 Not released yet :no_entry_sign:
 
