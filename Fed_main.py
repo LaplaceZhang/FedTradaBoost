@@ -50,18 +50,33 @@ class TrAdaBoost():
                                                                     test_data, P)
 
             print("--------------------------")
-            print("Test accuracy score for iteration {i}: {acc}".format(i=i,
-                                                                        acc=accuracy_score(
-                                                                            result_label[row_A + row_S:, i],
-                                                                            Test_label)))
-            print("Source accuracy score for iteration {i}: {acc}".format(i=i,
+            text = ("Test accuracy score for iteration {i}: {acc} \n".format(i=i,
                                                                           acc=accuracy_score(
-                                                                              result_label[row_A:row_A + row_S, i],
-                                                                              Source_label)))
-            print("Target accuracy score for iteration {i}: {acc}".format(i=i,
-                                                                          acc=accuracy_score(result_label[:row_A, i],
-                                                                                             Target_label)))
-            print('Results:', result_label[row_A + row_S:, i])
+                                                                              result_label[row_A + row_S:, i],
+                                                                              Test_label)))
+            print(text)
+            with open("local_text.txt", "a") as f:
+                f.write(text)
+
+            text = "Source accuracy score for iteration {i}: {acc} \n".format(i=i,
+                                                                            acc=accuracy_score(
+                                                                                result_label[row_A:row_A + row_S, i],
+                                                                                Source_label))
+            print(text)
+            with open("local_text.txt", "a") as f:
+                f.write(text)
+            text = "Target accuracy score for iteration {i}: {acc} \n".format(i=i,
+                                                                            acc=accuracy_score(result_label[:row_A, i],
+                                                                                               Target_label))
+            print(text)
+            with open("local_text.txt", "a") as f:
+                f.write(text)
+
+            text = 'Predicted results: {R} \n'.format(R=result_label[row_A + row_S:, i])
+            print(text)
+            with open("local_text.txt", "a") as f:
+                f.write(text)
+                # f.writelines(result_label[row_A + row_S:, i])
 
             # error_rate = self.calculate_error_rate(Source_label, result_label[row_A:row_A + row_S, i],
             #                                        weights[row_A:])  # error_rate from source, [incorrect]
@@ -106,6 +121,10 @@ class TrAdaBoost():
                 # weights[j] = weights[j] * np.power(beta, label[j])
                 weights[j] = weights[j] * np.exp(label[j] * beta_T[0, i])
 
+            text = "----------F-I-M---------- \n"
+            with open("local_text.txt", "a") as f:
+                f.write(text)
+
             # Weights
             # for j in range(row_S):
             #     if result_label[row_A + j, i] != Source_label[j]:
@@ -114,7 +133,10 @@ class TrAdaBoost():
             #     if result_label[j, i] != Target_label[j]:
             #         weights[j] = weights[j] / beta
 
-        print('Beta_T: ', beta_T)  # Previous logic: beta_T low = good, now: beta_T high = good, all weights need change
+        text = 'Beta_T: {t} \n'.format(t = beta_T)   # Previous logic: beta_T low = good, now: beta_T high = good, all weights need change
+        print(text)
+        with open("local_text.txt", "a") as f:
+            f.write(text)
         # print beta_T
         count_label = np.zeros([row_T])
         for j in range(row_T):
