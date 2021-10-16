@@ -169,7 +169,7 @@ def FedBoost(wts, X, Y, m1, m2):
     for i in range(est_wts2.shape[0]):
         score[m1.estimator_weights_.shape[0] + i] = m2.estimators_[i].score(X, Y)
     # The range here need to be considered carefully to avoid over-fit. Try from 30% (after multiple attempts)
-    rank = np.argsort(score)[::-1][150:est_wts1.shape[0] + 150]
+    rank = np.argsort(score)[::-1][175:est_wts1.shape[0] + 175]
     for i in range(rank.shape[0]):
         if rank[i] < est_wts1.shape[0]:
             UpdatedBaseEst.append(m1.estimators_[rank[i]])
@@ -221,54 +221,6 @@ def append_feature(dataframe, istest):
     X = np.c_[X, lack_num]
 
     return X
-
-
-# Aggregation
-# def FedTestAgg(X, Y, m1, m2):
-#     clf = AdaBoostClassifier(tree.DecisionTreeClassifier(max_depth=2,
-#                                                          min_samples_split=20,
-#                                                          min_samples_leaf=5),
-#                              algorithm="SAMME",
-#                              n_estimators=500, learning_rate=0.8)
-#     model = clf.fit(X, Y)
-#     wts1 = m1.estimator_weights_
-#     wts2 = m2.estimator_weights_
-#     est_wts = np.append(wts1, wts2)
-#     UpdatedBaseEst = []
-#     UpdatedBaseWet = np.zeros(wts1.shape[0], )
-#     UpdatedErr = np.zeros(wts1.shape[0], )
-#     score = np.zeros(est_wts.shape[0])
-#     for i in range(wts1.shape[0]):
-#         score[i] = m1.estimators_[i].score(X, Y)
-#     for i in range(wts2.shape[0]):
-#         score[m1.estimator_weights_.shape[0] + i] = m2.estimators_[i].score(X, Y)
-#     # The range here need to be considered carefully to avoid over-fit. Try from 30% (after multiple attempts)
-#     rank = np.argsort(score)[::-1][150:wts1.shape[0] + 150]
-#     for i in range(rank.shape[0]):
-#         if rank[i] < wts1.shape[0]:
-#             UpdatedBaseEst.append(m1.estimators_[rank[i]])
-#             UpdatedBaseWet[i] = m1.estimator_weights_[rank[i]]
-#             UpdatedErr[i] = m1.estimator_errors_[rank[i]]
-#         else:
-#             UpdatedBaseEst.append(m2.estimators_[rank[i] - wts1.shape[0]])
-#             UpdatedBaseWet[i] = m2.estimator_weights_[rank[i] - wts1.shape[0]]
-#             UpdatedErr[i] = m2.estimator_errors_[rank[i] - wts1.shape[0]]
-#     # for i in range(wts1.shape[0]):
-#     #     if m1.estimators_[i].score(X, Y) > m2.estimators_[i].score(X, Y):
-#     #         UpdatedBaseEst.append(m1.estimators_[i])
-#     #         UpdatedBaseWet[i] = m1.estimator_weights_[i]
-#     #         UpdatedErr[i] = m1.estimator_errors_[i]
-#     #     else:
-#     #         UpdatedBaseEst.append(m2.estimators_[i])
-#     #         UpdatedBaseWet[i] = m2.estimator_weights_[i]
-#     #         UpdatedErr[i] = m2.estimator_errors_[i]
-#
-#     model.estimators_ = UpdatedBaseEst
-#     model.estimator_weights_ = UpdatedBaseWet
-#     model.estimator_errors_ = UpdatedErr
-#     print(model)
-#
-#     return model
 
 
 def FedTestAgg(X, Y, m1, m2, m3, m4, m5):
