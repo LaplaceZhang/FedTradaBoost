@@ -48,4 +48,4 @@ Not released yet :no_entry_sign:
 
 ### To contact
 
-If you have any problems using this code, you may rise an issue on [GITHUB](https://github.com/LaplaceZhang/FedTradaBoost).
+If you have any problems using this code, you may raise an issue on [GITHUB](https://github.com/LaplaceZhang/FedTradaBoost).
