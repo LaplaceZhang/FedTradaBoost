@@ -1,4 +1,4 @@
-## Federated learning with transfer approach in IDS for IoT/IIoT scenario
+## Federated learning with transfer approach in IDS for IoT/IIoT scenarios
 
 [@LaplaceZhang](https://github.com/LaplaceZhang) 
 
