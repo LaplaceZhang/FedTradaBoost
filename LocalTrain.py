@@ -46,7 +46,7 @@ def append_feature(dataframe, istest):
 
 train_target = pd.DataFrame(pd.read_csv(root_path + LocalData))  # Target
 # Manually set a weak dataset for the target so we can show the advantages of transfer
-train_target = train_target.sample(1000)
+train_target = train_target
 train_target.fillna(value=0, inplace=True)
 train_source = pd.DataFrame(pd.read_csv(root_path + PublicData))  # Source
 train_source.fillna(value=0, inplace=True)
