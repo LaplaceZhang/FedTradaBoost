@@ -1,0 +1,78 @@
+Test accuracy score for iteration 0: 0.7838260869565218 
+Source accuracy score for iteration 0: 0.9215 
+Target accuracy score for iteration 0: 0.876 
+Predicted results: [0. 0. 0. ... 0. 0. 2.] 
+----------F-I-M---------- 
+Test accuracy score for iteration 1: 0.7645217391304348 
+Source accuracy score for iteration 1: 0.9174 
+Target accuracy score for iteration 1: 0.9 
+Predicted results: [0. 0. 5. ... 0. 5. 0.] 
+----------F-I-M---------- 
+Test accuracy score for iteration 2: 0.7584347826086957 
+Source accuracy score for iteration 2: 0.8974 
+Target accuracy score for iteration 2: 0.874 
+Predicted results: [0. 0. 0. ... 0. 5. 0.] 
+----------F-I-M---------- 
+Test accuracy score for iteration 3: 0.7763478260869565 
+Source accuracy score for iteration 3: 0.9162 
+Target accuracy score for iteration 3: 0.896 
+Predicted results: [0. 0. 0. ... 0. 0. 0.] 
+----------F-I-M---------- 
+Test accuracy score for iteration 4: 0.788 
+Source accuracy score for iteration 4: 0.9188 
+Target accuracy score for iteration 4: 0.91 
+Predicted results: [0. 0. 0. ... 0. 0. 0.] 
+----------F-I-M---------- 
+Test accuracy score for iteration 5: 0.7580869565217392 
+Source accuracy score for iteration 5: 0.9213 
+Target accuracy score for iteration 5: 0.889 
+Predicted results: [0. 0. 0. ... 0. 0. 0.] 
+----------F-I-M---------- 
+Test accuracy score for iteration 6: 0.7893913043478261 
+Source accuracy score for iteration 6: 0.9213 
+Target accuracy score for iteration 6: 0.903 
+Predicted results: [0. 0. 0. ... 0. 0. 5.] 
+----------F-I-M---------- 
+Test accuracy score for iteration 7: 0.696695652173913 
+Source accuracy score for iteration 7: 0.9154 
+Target accuracy score for iteration 7: 0.877 
+Predicted results: [0. 0. 5. ... 0. 5. 0.] 
+----------F-I-M---------- 
+Test accuracy score for iteration 8: 0.6848695652173913 
+Source accuracy score for iteration 8: 0.9302 
+Target accuracy score for iteration 8: 0.851 
+Predicted results: [0. 0. 5. ... 0. 5. 0.] 
+----------F-I-M---------- 
+Test accuracy score for iteration 9: 0.6685217391304348 
+Source accuracy score for iteration 9: 0.9057 
+Target accuracy score for iteration 9: 0.825 
+Predicted results: [0. 0. 5. ... 0. 0. 0.] 
+----------F-I-M---------- 
+Test accuracy score for iteration 10: 0.6631304347826087 
+Source accuracy score for iteration 10: 0.9406 
+Target accuracy score for iteration 10: 0.772 
+Predicted results: [0. 0. 5. ... 0. 5. 5.] 
+----------F-I-M---------- 
+Test accuracy score for iteration 11: 0.6834782608695652 
+Source accuracy score for iteration 11: 0.9164 
+Target accuracy score for iteration 11: 0.855 
+Predicted results: [0. 0. 5. ... 0. 0. 0.] 
+----------F-I-M---------- 
+Test accuracy score for iteration 12: 0.6975652173913044 
+Source accuracy score for iteration 12: 0.9065 
+Target accuracy score for iteration 12: 0.907 
+Predicted results: [0. 0. 0. ... 0. 5. 0.] 
+----------F-I-M---------- 
+Test accuracy score for iteration 13: 0.6857391304347826 
+Source accuracy score for iteration 13: 0.9158 
+Target accuracy score for iteration 13: 0.872 
+Predicted results: [0. 0. 0. ... 0. 5. 0.] 
+----------F-I-M---------- 
+Test accuracy score for iteration 14: 0.6777391304347826 
+Source accuracy score for iteration 14: 0.9254 
+Target accuracy score for iteration 14: 0.821 
+Predicted results: [0. 0. 5. ... 0. 5. 0.] 
+----------F-I-M---------- 
+Beta_T: [[0.39101691 0.38815029 0.30206775 0.28723499 0.26853177 0.25481666
+  0.19887363 0.16240526 0.16633356 0.12007961 0.10186768 0.10916366
+  0.13091045 0.12965166 0.0756035 ]] 
