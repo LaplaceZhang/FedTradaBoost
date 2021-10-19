@@ -15,7 +15,55 @@ import os
 from sklearn.ensemble import AdaBoostClassifier
 
 """
-Check README.md before play with this
+********************
+-- THE CONTRIBUTE --
+@author0: JIAZHEN ZHANG
+@author1: xxx xxx
+@author2: xxx xxx
+********************
+-- PROJECT README --
+This is the main server of the federated learning system. Here we aim to use energy-constrained IoT devices to 
+train a federated transfer learning module and get aggregation on this server. Considering limitations of IoT 
+devices, public datasets should be small and the model need to be as light as possible, which implies the deep
+learning may not be a good choice for such a system. Here we choose TrAdaBoost, using AdaBoost for base learner,
+containing 100 base_estimators, run 30 iterations on each device, each round.
+********************
+-- BASIC WORKFLOW --
+* RUN Fed_server.py, Fed_worker1.py ..
+* SERVER - 1 for check number of connected devices
+* SERVER - 4 for set up public samples to send (pickle file)
+* CLIENT - 3 to check any received data (Always remember to print, this also capable to update received data files!)
+* SERVER - 2 initialization a public model AdaBoost & send
+* CLIENT - 3 to check any received data 
+* CLIENT - 1 for receive model & start training
+* SERVER - 3 send message to clients in case client not return
+* CLIENT - 2 for send updated model back to server (pickle file)
+* SERVER - 4 to re-allocate public samples from database (IF: use sample weights for data re-arrange; ELSE: skip this)
+* SERVER - 5 for model aggregation, and return predicted results
+* GO FOR NEXT ITERATION
+* SERVER - 2 send updated model back to clients
+* SERVER - 7 OR CLIENT - 5 to stop connection
+
+ATTENTION: if any CLIENT got jammed, try use SERVER - 3 to send text message to target CLIENT
+ATTENTION: always remember to use - 3 on CLIENT to write received data into your file
+********************
+-- PAPER SUPPORTS --
+~No links here yet~
+********************
+-- IMPORT REQUIRE --
+socket --> host server & clients, including message send and receive
+threading --> multiple connections for server (only 2/3 clients used in this experiment)
+pickle --> seal message to send and receive, including save to file and load
+sklearn --> adaboost algorithm build, for base_estimators in our TrAdaBoost
+Some basic --> numpy pandas Python-3.7&higher sklearn-0.24.2
+********************
+-- CONTACT ME VIA --
+If you have any problems using this code, you may start an issue on project github page: 
+~No links here yet~
+********************
+-- THE DISCLAIMER --
+Code may contain bugs which may cause system crush (99.99% it won't), use at your own risk.
+Also the overall performance is not guaranteed.
 """
 
 ADDRESS = ('0.0.0.0', 7000)
@@ -161,13 +209,10 @@ CMD7: Stop all
                                                                      min_samples_leaf=5),
                                          algorithm="SAMME",
                                          n_estimators=500, learning_rate=0.5)
-
-                df = pd.read_csv(data_path + BaseDataset)
-                data = df.values
-                Y = data[:, data.shape[1] - 1]
-                X = agg.append_feature(df, istest=False)
-                clf.fit(X[::20,:], Y[::20])
                 X, Y = agg.DataFrame_loader(data_path + data_to_send)
+                clf.fit(X, Y)
+
+                X, Y = agg.DataFrame_loader(data_path + BaseDataset)
                 print("Score for initialized model: {score}".format(score=clf.score(X, Y)))
                 agg.PrintAllAcc(data_path, testddos, testbot, testport, testbruf, testinf, clf)
                 msg = pickle.dumps(clf)
@@ -233,15 +278,18 @@ CMD7: Stop all
             1. return weights of public samples --> re-allocate samples  
             2. returned adaboost model --> base classifier
             """
+
+            X, Y = agg.DataFrame_loader(data_path + BaseDataset)
+
             if os.path.exists(data_path + data_to_send):
-                X, Y = agg.DataFrame_loader(data_path + data_to_send)
                 print("Overall score from client0: {score}".format(score=m0.score(X, Y)))
                 print("Overall score from client1: {score}".format(score=m1.score(X, Y)))
                 print("Overall score from client2: {score}".format(score=m2.score(X, Y)))
                 print("Overall score from client3: {score}".format(score=m3.score(X, Y)))
                 print("Overall score from client4: {score}".format(score=m4.score(X, Y)))
-                # updated_model = agg.FedTestAgg(X, Y, m0, m1, m2, m3, m4)
-                updated_model = agg.FedAggDT(m0, m1, m2, m3, m4)
+                Xt, Yt = agg.DataFrame_loader(data_path + data_to_send)
+                # updated_model = agg.FedRank(Xt, Yt, m0, m1, m2, m3, m4)  # Rank for aggregation
+                updated_model = agg.FedAggDT(m0, m1, m2, m3, m4)  # Averaging for aggregation
                 '''
                 This should be the final output, no need for 500 estimators. 
                 select only a few estimators may have a better results compared with all 500 enrolled. 
@@ -296,8 +344,6 @@ CMD7: Stop all
             m5 = agg.slim_model(data_path, testinf, clf0, clf1, clf2, clf3, clf4)
             print("All slimmed models are done! Now return predicted labels for test")
             X, Y = agg.DataFrame_loader(data_path + BaseDataset)
-            # pred = agg.class_model(data_path, testddos, testbot, testport, testbruf, testinf,
-            #                        X, m0, m1, m2, m3, m4, m5)
             pred = agg.voting_agg(data_path, testddos, testbot, testport, testbruf, testinf, data_to_send,
                                    X, m0, m1, m2, m3, m4, m5)
             print(pred)
