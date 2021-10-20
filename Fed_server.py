@@ -359,21 +359,75 @@ CMD7: Stop all
             print('Inf.: ')
             print(agg.PrintAllAcc(data_path, testddos, testbot, testport, testbruf, testinf, m5))
 
-            X, Y = agg.DataFrame_loader(data_path + BaseDataset)
             print('**********************')
+            print('Test by Test data')
+            X, Y = agg.DataFrame_loader(data_path + BaseDataset)
+            # random the dataset
+            index = [i for i in range(len(Y))]
+            random.shuffle(index)
+            X = X[index]
+            Y = Y[index]
             print("Overall score from client0: {score}".format(score=m0.score(X, Y)))
             print("Overall score from client1: {score}".format(score=m1.score(X, Y)))
             print("Overall score from client2: {score}".format(score=m2.score(X, Y)))
             print("Overall score from client3: {score}".format(score=m3.score(X, Y)))
             print("Overall score from client4: {score}".format(score=m4.score(X, Y)))
             print("Overall score from client5: {score}".format(score=m5.score(X, Y)))
+            pred = agg.voting_agg(data_path, testddos, testbot, testport, testbruf, testinf, data_to_send,
+                                   X, m0, m1, m2, m3, m4, m5)
+            print(pred)
+            print(sklearn.metrics.accuracy_score(Y, pred))
             print('**********************')
-            # random the dataset
+            print('Test by DDoS, return acc for weighted voting')
+            X, Y = agg.DataFrame_loader(data_path + testddos)
             index = [i for i in range(len(Y))]
             random.shuffle(index)
             X = X[index]
             Y = Y[index]
-
+            pred = agg.voting_agg(data_path, testddos, testbot, testport, testbruf, testinf, data_to_send,
+                                   X, m0, m1, m2, m3, m4, m5)
+            print(pred)
+            print(sklearn.metrics.accuracy_score(Y, pred))
+            print('**********************')
+            print('Test by Bot, return acc for weighted voting')
+            X, Y = agg.DataFrame_loader(data_path + testbot)
+            index = [i for i in range(len(Y))]
+            random.shuffle(index)
+            X = X[index]
+            Y = Y[index]
+            pred = agg.voting_agg(data_path, testddos, testbot, testport, testbruf, testinf, data_to_send,
+                                   X, m0, m1, m2, m3, m4, m5)
+            print(pred)
+            print(sklearn.metrics.accuracy_score(Y, pred))
+            print('**********************')
+            print('Test by Port, return acc for weighted voting')
+            X, Y = agg.DataFrame_loader(data_path + testport)
+            index = [i for i in range(len(Y))]
+            random.shuffle(index)
+            X = X[index]
+            Y = Y[index]
+            pred = agg.voting_agg(data_path, testddos, testbot, testport, testbruf, testinf, data_to_send,
+                                   X, m0, m1, m2, m3, m4, m5)
+            print(pred)
+            print(sklearn.metrics.accuracy_score(Y, pred))
+            print('**********************')
+            print('Test by BruF, return acc for weighted voting')
+            X, Y = agg.DataFrame_loader(data_path + testbruf)
+            index = [i for i in range(len(Y))]
+            random.shuffle(index)
+            X = X[index]
+            Y = Y[index]
+            pred = agg.voting_agg(data_path, testddos, testbot, testport, testbruf, testinf, data_to_send,
+                                   X, m0, m1, m2, m3, m4, m5)
+            print(pred)
+            print(sklearn.metrics.accuracy_score(Y, pred))
+            print('**********************')
+            print('Test by InF, return acc for weighted voting')
+            X, Y = agg.DataFrame_loader(data_path + testinf)
+            index = [i for i in range(len(Y))]
+            random.shuffle(index)
+            X = X[index]
+            Y = Y[index]
             pred = agg.voting_agg(data_path, testddos, testbot, testport, testbruf, testinf, data_to_send,
                                    X, m0, m1, m2, m3, m4, m5)
             print(pred)
