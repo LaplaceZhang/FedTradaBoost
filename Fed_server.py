@@ -10,6 +10,7 @@ from sklearn import tree
 import Fed_main as tr
 import Fed_AGG as agg
 import pandas as pd
+import random
 import numpy
 import os
 from sklearn.ensemble import AdaBoostClassifier
@@ -343,7 +344,36 @@ CMD7: Stop all
             m4 = agg.slim_model(data_path, testbruf, clf0, clf1, clf2, clf3, clf4)
             m5 = agg.slim_model(data_path, testinf, clf0, clf1, clf2, clf3, clf4)
             print("All slimmed models are done! Now return predicted labels for test")
+            print('**********************')
+            print('Print results for each attack models:')
+            print('updated: ')
+            print(agg.PrintAllAcc(data_path, testddos, testbot, testport, testbruf, testinf, m0))
+            print('DDoS: ')
+            print(agg.PrintAllAcc(data_path, testddos, testbot, testport, testbruf, testinf, m1))
+            print('Botnet: ')
+            print(agg.PrintAllAcc(data_path, testddos, testbot, testport, testbruf, testinf, m2))
+            print('PortScan: ')
+            print(agg.PrintAllAcc(data_path, testddos, testbot, testport, testbruf, testinf, m3))
+            print('BruF.: ')
+            print(agg.PrintAllAcc(data_path, testddos, testbot, testport, testbruf, testinf, m4))
+            print('Inf.: ')
+            print(agg.PrintAllAcc(data_path, testddos, testbot, testport, testbruf, testinf, m5))
+
             X, Y = agg.DataFrame_loader(data_path + BaseDataset)
+            print('**********************')
+            print("Overall score from client0: {score}".format(score=m0.score(X, Y)))
+            print("Overall score from client1: {score}".format(score=m1.score(X, Y)))
+            print("Overall score from client2: {score}".format(score=m2.score(X, Y)))
+            print("Overall score from client3: {score}".format(score=m3.score(X, Y)))
+            print("Overall score from client4: {score}".format(score=m4.score(X, Y)))
+            print("Overall score from client5: {score}".format(score=m5.score(X, Y)))
+            print('**********************')
+            # random the dataset
+            index = [i for i in range(len(Y))]
+            random.shuffle(index)
+            X = X[index]
+            Y = Y[index]
+
             pred = agg.voting_agg(data_path, testddos, testbot, testport, testbruf, testinf, data_to_send,
                                    X, m0, m1, m2, m3, m4, m5)
             print(pred)
