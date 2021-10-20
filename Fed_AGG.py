@@ -5,6 +5,7 @@ import pickle
 import Fed_main as tr
 import pandas as pd
 import numpy as np
+import random
 import os
 from sklearn.ensemble import AdaBoostClassifier
 from sklearn import tree
@@ -223,7 +224,7 @@ def append_feature(dataframe, istest):
     return X
 
 
-def FedTestAgg(X, Y, m1, m2, m3, m4, m5):
+def FedRank(X, Y, m1, m2, m3, m4, m5):
     clf = AdaBoostClassifier(tree.DecisionTreeClassifier(max_depth=2,
                                                          min_samples_split=20,
                                                          min_samples_leaf=5),
@@ -647,12 +648,19 @@ def voting_agg(data_path, ddos, bot, port, bruf, inf, T, X, m0, m1, m2, m3, m4, 
     :return: predicted labels as np.array
     """
     Tx, Ty = DataFrame_loader(data_path + T)
+    # random the dataset
+    index = [i for i in range(len(Ty))]
+    random.shuffle(index)
+    Tx = Tx[index]
+    Ty = Ty[index]
+
     pred = np.zeros(X.shape[0])
     for i in range(X.shape[0] // 100):
         if 100 * (i + 1) <= X.shape[0]:
             wts = voting_weight(data_path, ddos, bot, port, bruf, inf, X[100 * i: 100 * (i + 1), ])  # return weights
-            print('DDoS:{a}; Bot:{b}; Port: {c}; Bruf: {d}; Inf: {e}; Avg: {f}'.format(a=wts[0], b=wts[1], c=wts[2],
-                                                                                       d=wts[3], e=wts[4], f=wts[5]))
+            print('DataBlock {i} >> DDoS:{a}; Bot:{b}; Port: {c}; Bruf: {d}; Inf: {e}; Avg: {f}'
+                  .format(i=i+1, a=wts[0], b=wts[1], c=wts[2], d=wts[3], e=wts[4], f=wts[5]))
+
             eclf = VotingClassifier(estimators=[('DDoS', m1), ('Botnet', m2), ('PortScan', m3),
                                                 ('BruteForce', m4), ('Infiltration', m5), ('Updated', m0)],
                                     voting='soft', weights=wts)
@@ -660,8 +668,8 @@ def voting_agg(data_path, ddos, bot, port, bruf, inf, T, X, m0, m1, m2, m3, m4, 
             pred[100 * i: 100 * (i + 1), ] = eclf.predict(X[100 * i: 100 * (i + 1), ])
         else:
             wts = voting_weight(data_path, ddos, bot, port, bruf, inf, X[100 * i:, ])
-            print('DDoS:{a}; Bot:{b}; Port: {c}; Bruf: {d}; Inf: {e}; Avg: {f}'.format(a=wts[0], b=wts[1], c=wts[2],
-                                                                                       d=wts[3], e=wts[4], f=wts[5]))
+            print('DataBlock {i} >> DDoS:{a}; Bot:{b}; Port: {c}; Bruf: {d}; Inf: {e}; Avg: {f}'
+                  .format(i=i+1, a=wts[0], b=wts[1], c=wts[2], d=wts[3], e=wts[4], f=wts[5]))
             eclf = VotingClassifier(estimators=[('DDoS', m1), ('Botnet', m2), ('PortScan', m3),
                                                 ('BruteForce', m4), ('Infiltration', m5), ('Updated', m0)],
                                     voting='soft', weights=wts)
