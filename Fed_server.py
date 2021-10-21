@@ -367,16 +367,17 @@ CMD7: Stop all
             random.shuffle(index)
             X = X[index]
             Y = Y[index]
-            print("Overall score from client0: {score}".format(score=m0.score(X, Y)))
-            print("Overall score from client1: {score}".format(score=m1.score(X, Y)))
-            print("Overall score from client2: {score}".format(score=m2.score(X, Y)))
-            print("Overall score from client3: {score}".format(score=m3.score(X, Y)))
-            print("Overall score from client4: {score}".format(score=m4.score(X, Y)))
-            print("Overall score from client5: {score}".format(score=m5.score(X, Y)))
+            print("Overall score from Updated: {score}".format(score=m0.score(X, Y)))
+            print("Overall score from DDoS: {score}".format(score=m1.score(X, Y)))
+            print("Overall score from Botnet: {score}".format(score=m2.score(X, Y)))
+            print("Overall score from PortScan: {score}".format(score=m3.score(X, Y)))
+            print("Overall score from BruF: {score}".format(score=m4.score(X, Y)))
+            print("Overall score from InF: {score}".format(score=m5.score(X, Y)))
             pred = agg.voting_agg(data_path, testddos, testbot, testport, testbruf, testinf, data_to_send,
                                    X, m0, m1, m2, m3, m4, m5)
             print(pred)
-            print(sklearn.metrics.accuracy_score(Y, pred))
+            print('F-1 Score', sklearn.metrics.f1_score(Y, pred, average='macro'))
+            print('ACC Score', sklearn.metrics.accuracy_score(Y, pred))
             print('**********************')
             print('Test by DDoS, return acc for weighted voting')
             X, Y = agg.DataFrame_loader(data_path + testddos)
@@ -387,7 +388,8 @@ CMD7: Stop all
             pred = agg.voting_agg(data_path, testddos, testbot, testport, testbruf, testinf, data_to_send,
                                    X, m0, m1, m2, m3, m4, m5)
             print(pred)
-            print(sklearn.metrics.accuracy_score(Y, pred))
+            print('F-1 Score', sklearn.metrics.f1_score(Y, pred, average='macro'))
+            print('ACC Score', sklearn.metrics.accuracy_score(Y, pred))
             print('**********************')
             print('Test by Bot, return acc for weighted voting')
             X, Y = agg.DataFrame_loader(data_path + testbot)
@@ -398,7 +400,8 @@ CMD7: Stop all
             pred = agg.voting_agg(data_path, testddos, testbot, testport, testbruf, testinf, data_to_send,
                                    X, m0, m1, m2, m3, m4, m5)
             print(pred)
-            print(sklearn.metrics.accuracy_score(Y, pred))
+            print('F-1 Score', sklearn.metrics.f1_score(Y, pred, average='macro'))
+            print('ACC Score', sklearn.metrics.accuracy_score(Y, pred))
             print('**********************')
             print('Test by Port, return acc for weighted voting')
             X, Y = agg.DataFrame_loader(data_path + testport)
@@ -409,7 +412,8 @@ CMD7: Stop all
             pred = agg.voting_agg(data_path, testddos, testbot, testport, testbruf, testinf, data_to_send,
                                    X, m0, m1, m2, m3, m4, m5)
             print(pred)
-            print(sklearn.metrics.accuracy_score(Y, pred))
+            print('F-1 Score', sklearn.metrics.f1_score(Y, pred, average='macro'))
+            print('ACC Score', sklearn.metrics.accuracy_score(Y, pred))
             print('**********************')
             print('Test by BruF, return acc for weighted voting')
             X, Y = agg.DataFrame_loader(data_path + testbruf)
@@ -420,7 +424,8 @@ CMD7: Stop all
             pred = agg.voting_agg(data_path, testddos, testbot, testport, testbruf, testinf, data_to_send,
                                    X, m0, m1, m2, m3, m4, m5)
             print(pred)
-            print(sklearn.metrics.accuracy_score(Y, pred))
+            print('F-1 Score', sklearn.metrics.f1_score(Y, pred, average='macro'))
+            print('ACC Score', sklearn.metrics.accuracy_score(Y, pred))
             print('**********************')
             print('Test by InF, return acc for weighted voting')
             X, Y = agg.DataFrame_loader(data_path + testinf)
@@ -431,7 +436,8 @@ CMD7: Stop all
             pred = agg.voting_agg(data_path, testddos, testbot, testport, testbruf, testinf, data_to_send,
                                    X, m0, m1, m2, m3, m4, m5)
             print(pred)
-            print(sklearn.metrics.accuracy_score(Y, pred))
+            print('F-1 Score', sklearn.metrics.f1_score(Y, pred, average='macro'))
+            print('ACC Score', sklearn.metrics.accuracy_score(Y, pred))
 
         elif cmd == '7':
             print("--------------------------")
