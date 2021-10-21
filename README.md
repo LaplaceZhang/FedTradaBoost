@@ -50,18 +50,6 @@ containing 100 base_estimators, run 30 iterations on each device, each round.
 | Client4 (TD4)  | PortScan(5%), Infiltration(10%), BruteForce(10%)                           | 5,760         |
 | Client5 (TD5)  | BruteForce(10%), Infiltration(10%)                                         | 4,000         |
 
-***
-### SOME RESULTS
-
-|                   | DDoS  | Botnet | PortScan | BruteForce | Infiltration | Overall |
-|:-----------------:|-------|--------|----------|------------|--------------|---------|
-| Server(FedAvg) m0 | 0.983 | 0.977  | 0.986    | 0.783      | 0.665        | 0.833   |
-|      DDoS m1      | 0.942 | 0.317  | 0.226    | 0.597      | 0.586        | 0.134   |
-|     Botnet m2     | 0.192 | 0.980  | 0.382    | 0.438      | 0.433        | 0.465   |
-|    PortScan m3    | 0.198 | 0.598  | 0.994    | 0.600      | 0.560        | 0.466   |
-|   BruteForce m4   | 0.147 | 0.323  | 0.230    | 0.997      | 0.584        | 0.137   |
-|  Infiltration m5  | 0.211 | 0.600  | 0.447    | 0.591      | 0.600        | 0.333   |
-
 
 ***
 
