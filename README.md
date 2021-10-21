@@ -43,10 +43,10 @@ containing 100 base_estimators, run 30 iterations on each device, each round.
 
 | Configurations | Attack Types with Percentage                                               | Total Packets |
 |----------------|----------------------------------------------------------------------------|---------------|
-| Public (SD)    | DDoS(20%), Botnet(20%), PortScan(20%),  BruteForce(10%), Infiltration(10%) | 10,000        |
-| Client1 (TD1)  | DDoS(10%), Botnet(10%)                                                     | 4,400         |
-| Client2 (TD2)  | DDoS(10%), Botnet(5%), BruteForce(10%),Infiltration(15%)                   | 5,000         |
-| Client3 (TD3)  | DDoS(10%), Botnet(5%),PortScan(10%)                                        | 4,500         |
+| Public (SD)    | DDoS-17(20%), Botnet-17(20%), PortScan(20%),  BruteForce(10%), Infiltration(10%) | 10,000        |
+| Client1 (TD1)  | DDoS-18(10%), Botnet-18(10%)                                                     | 4,400         |
+| Client2 (TD2)  | DDoS-18(10%), Botnet-18(5%), BruteForce(10%),Infiltration(15%)                   | 5,000         |
+| Client3 (TD3)  | DDoS-17(10%), Botnet-17(5%),PortScan(10%)                                        | 4,500         |
 | Client4 (TD4)  | PortScan(5%), Infiltration(10%), BruteForce(10%)                           | 5,760         |
 | Client5 (TD5)  | BruteForce(10%), Infiltration(10%)                                         | 4,000         |
 
