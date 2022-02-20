@@ -5,15 +5,19 @@ import pickle
 
 import numpy as np
 import sklearn.metrics
-
+from sklearn.metrics import confusion_matrix
+from sklearn.ensemble import AdaBoostClassifier
 from sklearn import tree
-import Fed_main as tr
+from sklearn.ensemble import RandomForestClassifier  # Adopt Random Forest (RF)
+
+import Fed_main as tr  # abandoned
 import Fed_AGG as agg
+import Fed_AGG_RF as RFagg
 import pandas as pd
 import random
 import numpy
 import os
-from sklearn.ensemble import AdaBoostClassifier
+import time
 
 """
 ********************
@@ -150,6 +154,12 @@ def message_handle(client):
             pickle.dump(received_data, f)
             f.close()
             print(received_data)
+        elif type(received_data) == RandomForestClassifier:  # Random Forest
+            print("Model Received!")
+            f = open('./server_save/model/update{num}.pickle'.format(num=g_conn_pool.index(client)), 'wb')
+            pickle.dump(received_data, f)
+            f.close()
+            print(received_data)
         else:
             print("Received from client{num}. Received information: {type} {received_data}".format(
                 num=g_conn_pool.index(client),
@@ -170,8 +180,13 @@ CMD2: Send model to client
 CMD3: Send text message to client
 CMD4: Reallocate samples by weights
 CMD5: Model aggregation 
-CMD6: Model pretrain
+CMD6: Model voting aggregation
 CMD7: Stop all
+-----------------------
+Add new experiment for TII revision
+CMD8: Setup Random Forest (RF) models and distribute to clients
+CMD9: RF FedAvg aggregation 
+CMD10: RF FedVoting aggregation
 """)
         if cmd == '1':
             print("--------------------------")
@@ -259,19 +274,19 @@ CMD7: Stop all
             """
             print("--------------------------")
             print("Model aggregation started.")
-            f = open(model_path+"update0.pickle", "rb")
+            f = open(model_path + "update0.pickle", "rb")
             m0 = pickle.load(f)
             f.close()
-            f = open(model_path+"update1.pickle", "rb")
+            f = open(model_path + "update1.pickle", "rb")
             m1 = pickle.load(f)
             f.close()
-            f = open(model_path+"update2.pickle", "rb")
+            f = open(model_path + "update2.pickle", "rb")
             m2 = pickle.load(f)
             f.close()
-            f = open(model_path+"update3.pickle", "rb")
+            f = open(model_path + "update3.pickle", "rb")
             m3 = pickle.load(f)
             f.close()
-            f = open(model_path+"update4.pickle", "rb")
+            f = open(model_path + "update4.pickle", "rb")
             m4 = pickle.load(f)
             f.close()
             """
@@ -297,20 +312,96 @@ CMD7: Stop all
                 example: public100 + private125
                 '''
                 print("Overall score from updated model: {score}".format(score=updated_model.score(X, Y)))
-                print('F-1 Score', sklearn.metrics.f1_score(Y, updated_model.predict(X), average='macro'))
 
+                print("--------------------------")
                 print('m0: ')
+                pred = m0.predict(X)
+                cnf_matrix = confusion_matrix(Y, pred)
+                print(cnf_matrix)
+                FP = cnf_matrix.sum(axis=0) - np.diag(cnf_matrix)
+                FN = cnf_matrix.sum(axis=1) - np.diag(cnf_matrix)
+                TP = np.diag(cnf_matrix)
+                TN = cnf_matrix.sum() - (FP + FN + TP)
+                print('TPR:', np.mean(TP / (TP + FN)))
+                print('FPR:', np.mean(FP / (FP + TN)))
+                print('ACC', (TP + TN) / (TP + FP + FN + TN))
                 print(agg.PrintAllAcc(data_path, testddos, testbot, testport, testbruf, testinf, m0))
+                print('F-1 Score', sklearn.metrics.f1_score(Y, pred, average='macro'))
+
+                print("--------------------------")
                 print('m1: ')
+                pred = m1.predict(X)
+                cnf_matrix = confusion_matrix(Y, pred)
+                print(cnf_matrix)
+                FP = cnf_matrix.sum(axis=0) - np.diag(cnf_matrix)
+                FN = cnf_matrix.sum(axis=1) - np.diag(cnf_matrix)
+                TP = np.diag(cnf_matrix)
+                TN = cnf_matrix.sum() - (FP + FN + TP)
+                print('TPR:', np.mean(TP / (TP + FN)))
+                print('FPR:', np.mean(FP / (FP + TN)))
+                print('ACC', (TP + TN) / (TP + FP + FN + TN))
                 print(agg.PrintAllAcc(data_path, testddos, testbot, testport, testbruf, testinf, m1))
+                print('F-1 Score', sklearn.metrics.f1_score(Y, pred, average='macro'))
+
+                print("--------------------------")
                 print('m2: ')
+                pred = m2.predict(X)
+                cnf_matrix = confusion_matrix(Y, pred)
+                print(cnf_matrix)
+                FP = cnf_matrix.sum(axis=0) - np.diag(cnf_matrix)
+                FN = cnf_matrix.sum(axis=1) - np.diag(cnf_matrix)
+                TP = np.diag(cnf_matrix)
+                TN = cnf_matrix.sum() - (FP + FN + TP)
+                print('TPR:', np.mean(TP / (TP + FN)))
+                print('FPR:', np.mean(FP / (FP + TN)))
+                print('ACC', (TP + TN) / (TP + FP + FN + TN))
                 print(agg.PrintAllAcc(data_path, testddos, testbot, testport, testbruf, testinf, m2))
+                print('F-1 Score', sklearn.metrics.f1_score(Y, pred, average='macro'))
+
+                print("--------------------------")
                 print('m3: ')
+                pred = m3.predict(X)
+                cnf_matrix = confusion_matrix(Y, pred)
+                print(cnf_matrix)
+                FP = cnf_matrix.sum(axis=0) - np.diag(cnf_matrix)
+                FN = cnf_matrix.sum(axis=1) - np.diag(cnf_matrix)
+                TP = np.diag(cnf_matrix)
+                TN = cnf_matrix.sum() - (FP + FN + TP)
+                print('TPR:', np.mean(TP / (TP + FN)))
+                print('FPR:', np.mean(FP / (FP + TN)))
+                print('ACC', (TP + TN) / (TP + FP + FN + TN))
                 print(agg.PrintAllAcc(data_path, testddos, testbot, testport, testbruf, testinf, m3))
+                print('F-1 Score', sklearn.metrics.f1_score(Y, pred, average='macro'))
+
+                print("--------------------------")
                 print('m4: ')
+                pred = m4.predict(X)
+                cnf_matrix = confusion_matrix(Y, pred)
+                print(cnf_matrix)
+                FP = cnf_matrix.sum(axis=0) - np.diag(cnf_matrix)
+                FN = cnf_matrix.sum(axis=1) - np.diag(cnf_matrix)
+                TP = np.diag(cnf_matrix)
+                TN = cnf_matrix.sum() - (FP + FN + TP)
+                print('TPR:', np.mean(TP / (TP + FN)))
+                print('FPR:', np.mean(FP / (FP + TN)))
+                print('ACC', (TP + TN) / (TP + FP + FN + TN))
                 print(agg.PrintAllAcc(data_path, testddos, testbot, testport, testbruf, testinf, m4))
+                print('F-1 Score', sklearn.metrics.f1_score(Y, pred, average='macro'))
+
+                print("--------------------------")
                 print('updated: ')
+                pred = updated_model.predict(X)
+                cnf_matrix = confusion_matrix(Y, pred)
+                print(cnf_matrix)
+                FP = cnf_matrix.sum(axis=0) - np.diag(cnf_matrix)
+                FN = cnf_matrix.sum(axis=1) - np.diag(cnf_matrix)
+                TP = np.diag(cnf_matrix)
+                TN = cnf_matrix.sum() - (FP + FN + TP)
+                print('TPR:', np.mean(TP / (TP + FN)))
+                print('FPR:', np.mean(FP / (FP + TN)))
+                print('ACC', (TP + TN) / (TP + FP + FN + TN))
                 print(agg.PrintAllAcc(data_path, testddos, testbot, testport, testbruf, testinf, updated_model))
+                print('F-1 Score', sklearn.metrics.f1_score(Y, pred, average='macro'))
 
                 f = open(model_path + saved_model, 'wb')
                 pickle.dump(updated_model, f)
@@ -321,22 +412,22 @@ CMD7: Stop all
 
         elif cmd == "6":
             print("Use specialized model for specific tasks")
-            f = open(model_path+"update0.pickle", "rb")
+            f = open(model_path + "update0.pickle", "rb")
             clf0 = pickle.load(f)
             f.close()
-            f = open(model_path+"update1.pickle", "rb")
+            f = open(model_path + "update1.pickle", "rb")
             clf1 = pickle.load(f)
             f.close()
-            f = open(model_path+"update2.pickle", "rb")
+            f = open(model_path + "update2.pickle", "rb")
             clf2 = pickle.load(f)
             f.close()
-            f = open(model_path+"update3.pickle", "rb")
+            f = open(model_path + "update3.pickle", "rb")
             clf3 = pickle.load(f)
             f.close()
-            f = open(model_path+"update4.pickle", "rb")
+            f = open(model_path + "update4.pickle", "rb")
             clf4 = pickle.load(f)
             f.close()
-            f = open(model_path+saved_model, "rb")
+            f = open(model_path + saved_model, "rb")
             m0 = pickle.load(f)
             f.close()
             m1 = agg.slim_model(data_path, testddos, clf0, clf1, clf2, clf3, clf4)
@@ -375,10 +466,18 @@ CMD7: Stop all
             print("Overall score from BruF: {score}".format(score=m4.score(X, Y)))
             print("Overall score from InF: {score}".format(score=m5.score(X, Y)))
             pred = agg.voting_agg(data_path, testddos, testbot, testport, testbruf, testinf, data_to_send,
-                                   X, m0, m1, m2, m3, m4, m5)
+                                  X, m0, m1, m2, m3, m4, m5, N=7500)
             print(pred)
             print('F-1 Score', sklearn.metrics.f1_score(Y, pred, average='macro'))
             print('ACC Score', sklearn.metrics.accuracy_score(Y, pred))
+            cnf_matrix = confusion_matrix(Y, pred)
+            print(cnf_matrix)
+            FP = cnf_matrix.sum(axis=0) - np.diag(cnf_matrix)
+            FN = cnf_matrix.sum(axis=1) - np.diag(cnf_matrix)
+            TP = np.diag(cnf_matrix)
+            TN = cnf_matrix.sum() - (FP + FN + TP)
+            print('TPR:', np.mean(TP / (TP + FN)))
+            print('FPR:', np.mean(FP / (FP + TN)))
 
         elif cmd == '7':
             print("--------------------------")
@@ -387,3 +486,235 @@ CMD7: Stop all
             msg = pickle.dumps(msg)
             [g_conn_pool[i].sendall(msg) for i in range(len(g_conn_pool))]
             exit()
+
+        #  -----------------------
+        #  Random Forest Exp
+        elif cmd == '8':
+            print("Random Forest Model Initialization")
+
+            clf = RandomForestClassifier(n_estimators=50, max_depth=2, random_state=0)  # RF exp
+
+            X, Y = agg.DataFrame_loader(data_path + data_to_send)
+            clf.fit(X, Y)
+
+            X, Y = agg.DataFrame_loader(data_path + BaseDataset)
+            print("Score for initialized model: {score}".format(score=clf.score(X, Y)))
+            agg.PrintAllAcc(data_path, testddos, testbot, testport, testbruf, testinf, clf)
+            msg = pickle.dumps(clf)
+            # g_conn_pool[int(index)].sendall(msg)
+            [g_conn_pool[i].sendall(msg) for i in range(len(g_conn_pool))]
+            # print('Send model to client {num} & start training.'.format(num=index))
+            print('Sent model to all clients')
+
+
+        elif cmd == '9':
+            """
+            This model aggregation aims to compare performance of base_estimators in each updated AdaBoost model. 
+            """
+            print("--------------------------")
+            print("RF aggregation started.")
+            f = open(model_path + "update0.pickle", "rb")
+            m0 = pickle.load(f)
+            f.close()
+            f = open(model_path + "update1.pickle", "rb")
+            m1 = pickle.load(f)
+            f.close()
+            f = open(model_path + "update2.pickle", "rb")
+            m2 = pickle.load(f)
+            f.close()
+            f = open(model_path + "update3.pickle", "rb")
+            m3 = pickle.load(f)
+            f.close()
+            f = open(model_path + "update4.pickle", "rb")
+            m4 = pickle.load(f)
+            f.close()
+            """
+            Required: 
+            1. return weights of public samples --> re-allocate samples  
+            2. returned adaboost model --> base classifier
+            """
+
+            X, Y = RFagg.DataFrame_loader(data_path + BaseDataset)
+
+            if os.path.exists(data_path + data_to_send):
+                print("Overall score from client0: {score}".format(score=m0.score(X, Y)))
+                print("Overall score from client1: {score}".format(score=m1.score(X, Y)))
+                print("Overall score from client2: {score}".format(score=m2.score(X, Y)))
+                print("Overall score from client3: {score}".format(score=m3.score(X, Y)))
+                print("Overall score from client4: {score}".format(score=m4.score(X, Y)))
+                Xt, Yt = RFagg.DataFrame_loader(data_path + data_to_send)
+                # updated_model = RFagg.FedRank(Xt, Yt, m0, m1, m2, m3, m4)  # Rank for aggregation
+                updated_model = RFagg.FedAggDT(m0, m1, m2, m3, m4)  # Averaging for aggregation
+                '''
+                This should be the final output, no need for 500 estimators. 
+                select only a few estimators may have a better results compared with all 500 enrolled. 
+                example: public100 + private125
+                '''
+                print("Overall score from updated model: {score}".format(score=updated_model.score(X, Y)))
+
+                print("--------------------------")
+                print('m0: ')
+                pred = m0.predict(X)
+                cnf_matrix = confusion_matrix(Y, pred)
+                print(cnf_matrix)
+                FP = cnf_matrix.sum(axis=0) - np.diag(cnf_matrix)
+                FN = cnf_matrix.sum(axis=1) - np.diag(cnf_matrix)
+                TP = np.diag(cnf_matrix)
+                TN = cnf_matrix.sum() - (FP + FN + TP)
+                print('TPR:', np.mean(TP / (TP + FN)))
+                print('FPR:', np.mean(FP / (FP + TN)))
+                print('ACC', (TP + TN) / (TP + FP + FN + TN))
+                print(RFagg.PrintAllAcc(data_path, testddos, testbot, testport, testbruf, testinf, m0))
+                print('F-1 Score', sklearn.metrics.f1_score(Y, pred, average='macro'))
+
+                print("--------------------------")
+                print('m1: ')
+                pred = m1.predict(X)
+                cnf_matrix = confusion_matrix(Y, pred)
+                print(cnf_matrix)
+                FP = cnf_matrix.sum(axis=0) - np.diag(cnf_matrix)
+                FN = cnf_matrix.sum(axis=1) - np.diag(cnf_matrix)
+                TP = np.diag(cnf_matrix)
+                TN = cnf_matrix.sum() - (FP + FN + TP)
+                print('TPR:', np.mean(TP / (TP + FN)))
+                print('FPR:', np.mean(FP / (FP + TN)))
+                print('ACC', (TP + TN) / (TP + FP + FN + TN))
+                print(RFagg.PrintAllAcc(data_path, testddos, testbot, testport, testbruf, testinf, m1))
+                print('F-1 Score', sklearn.metrics.f1_score(Y, pred, average='macro'))
+
+                print("--------------------------")
+                print('m2: ')
+                pred = m2.predict(X)
+                cnf_matrix = confusion_matrix(Y, pred)
+                print(cnf_matrix)
+                FP = cnf_matrix.sum(axis=0) - np.diag(cnf_matrix)
+                FN = cnf_matrix.sum(axis=1) - np.diag(cnf_matrix)
+                TP = np.diag(cnf_matrix)
+                TN = cnf_matrix.sum() - (FP + FN + TP)
+                print('TPR:', np.mean(TP / (TP + FN)))
+                print('FPR:', np.mean(FP / (FP + TN)))
+                print('ACC', (TP + TN) / (TP + FP + FN + TN))
+                print(RFagg.PrintAllAcc(data_path, testddos, testbot, testport, testbruf, testinf, m2))
+                print('F-1 Score', sklearn.metrics.f1_score(Y, pred, average='macro'))
+
+                print("--------------------------")
+                print('m3: ')
+                pred = m3.predict(X)
+                cnf_matrix = confusion_matrix(Y, pred)
+                print(cnf_matrix)
+                FP = cnf_matrix.sum(axis=0) - np.diag(cnf_matrix)
+                FN = cnf_matrix.sum(axis=1) - np.diag(cnf_matrix)
+                TP = np.diag(cnf_matrix)
+                TN = cnf_matrix.sum() - (FP + FN + TP)
+                print('TPR:', np.mean(TP / (TP + FN)))
+                print('FPR:', np.mean(FP / (FP + TN)))
+                print('ACC', (TP + TN) / (TP + FP + FN + TN))
+                print(RFagg.PrintAllAcc(data_path, testddos, testbot, testport, testbruf, testinf, m3))
+                print('F-1 Score', sklearn.metrics.f1_score(Y, pred, average='macro'))
+
+                print("--------------------------")
+                print('m4: ')
+                pred = m4.predict(X)
+                cnf_matrix = confusion_matrix(Y, pred)
+                print(cnf_matrix)
+                FP = cnf_matrix.sum(axis=0) - np.diag(cnf_matrix)
+                FN = cnf_matrix.sum(axis=1) - np.diag(cnf_matrix)
+                TP = np.diag(cnf_matrix)
+                TN = cnf_matrix.sum() - (FP + FN + TP)
+                print('TPR:', np.mean(TP / (TP + FN)))
+                print('FPR:', np.mean(FP / (FP + TN)))
+                print('ACC', (TP + TN) / (TP + FP + FN + TN))
+                print(RFagg.PrintAllAcc(data_path, testddos, testbot, testport, testbruf, testinf, m4))
+                print('F-1 Score', sklearn.metrics.f1_score(Y, pred, average='macro'))
+
+                print("--------------------------")
+                print('updated: ')
+                pred = updated_model.predict(X)
+                cnf_matrix = confusion_matrix(Y, pred)
+                print(cnf_matrix)
+                FP = cnf_matrix.sum(axis=0) - np.diag(cnf_matrix)
+                FN = cnf_matrix.sum(axis=1) - np.diag(cnf_matrix)
+                TP = np.diag(cnf_matrix)
+                TN = cnf_matrix.sum() - (FP + FN + TP)
+                print('TPR:', np.mean(TP / (TP + FN)))
+                print('FPR:', np.mean(FP / (FP + TN)))
+                print('ACC', (TP + TN) / (TP + FP + FN + TN))
+                print(RFagg.PrintAllAcc(data_path, testddos, testbot, testport, testbruf, testinf, updated_model))
+                print('F-1 Score', sklearn.metrics.f1_score(Y, pred, average='macro'))
+
+                f = open(model_path + saved_model, 'wb')
+                pickle.dump(updated_model, f)
+                f.close()
+
+        elif cmd == "10":
+            print("Use specialized model for specific tasks")
+            f = open(model_path + "update0.pickle", "rb")
+            clf0 = pickle.load(f)
+            f.close()
+            f = open(model_path + "update1.pickle", "rb")
+            clf1 = pickle.load(f)
+            f.close()
+            f = open(model_path + "update2.pickle", "rb")
+            clf2 = pickle.load(f)
+            f.close()
+            f = open(model_path + "update3.pickle", "rb")
+            clf3 = pickle.load(f)
+            f.close()
+            f = open(model_path + "update4.pickle", "rb")
+            clf4 = pickle.load(f)
+            f.close()
+            f = open(model_path + saved_model, "rb")
+            m0 = pickle.load(f)
+            f.close()
+            m1 = RFagg.slim_model(data_path, testddos, clf0, clf1, clf2, clf3, clf4)
+            m2 = RFagg.slim_model(data_path, testbot, clf0, clf1, clf2, clf3, clf4)
+            m3 = RFagg.slim_model(data_path, testport, clf0, clf1, clf2, clf3, clf4)
+            m4 = RFagg.slim_model(data_path, testbruf, clf0, clf1, clf2, clf3, clf4)
+            m5 = RFagg.slim_model(data_path, testinf, clf0, clf1, clf2, clf3, clf4)
+            print("All slimmed models are done! Now return predicted labels for test")
+            print('**********************')
+            print('Print results for each attack models:')
+            print('updated: ')
+            print(RFagg.PrintAllAcc(data_path, testddos, testbot, testport, testbruf, testinf, m0))
+            print('DDoS: ')
+            print(RFagg.PrintAllAcc(data_path, testddos, testbot, testport, testbruf, testinf, m1))
+            print('Botnet: ')
+            print(RFagg.PrintAllAcc(data_path, testddos, testbot, testport, testbruf, testinf, m2))
+            print('PortScan: ')
+            print(RFagg.PrintAllAcc(data_path, testddos, testbot, testport, testbruf, testinf, m3))
+            print('BruF.: ')
+            print(RFagg.PrintAllAcc(data_path, testddos, testbot, testport, testbruf, testinf, m4))
+            print('Inf.: ')
+            print(RFagg.PrintAllAcc(data_path, testddos, testbot, testport, testbruf, testinf, m5))
+
+            print('**********************')
+            print('Test by Test data')
+            X, Y = RFagg.DataFrame_loader(data_path + BaseDataset)
+            # random the dataset
+            index = [i for i in range(len(Y))]
+            random.shuffle(index)
+            X = X[index]
+            Y = Y[index]
+            print("Overall score from Updated: {score}".format(score=m0.score(X, Y)))
+            print("Overall score from DDoS: {score}".format(score=m1.score(X, Y)))
+            print("Overall score from Botnet: {score}".format(score=m2.score(X, Y)))
+            print("Overall score from PortScan: {score}".format(score=m3.score(X, Y)))
+            print("Overall score from BruF: {score}".format(score=m4.score(X, Y)))
+            print("Overall score from InF: {score}".format(score=m5.score(X, Y)))
+            pred = RFagg.voting_agg(data_path, testddos, testbot, testport, testbruf, testinf, data_to_send,
+                                  X, m0, m1, m2, m3, m4, m5, N=7500)
+            print(pred)
+            print('F-1 Score', sklearn.metrics.f1_score(Y, pred, average='macro'))
+            print('ACC Score', sklearn.metrics.accuracy_score(Y, pred))
+            cnf_matrix = confusion_matrix(Y, pred)
+            print(cnf_matrix)
+            FP = cnf_matrix.sum(axis=0) - np.diag(cnf_matrix)
+            FN = cnf_matrix.sum(axis=1) - np.diag(cnf_matrix)
+            TP = np.diag(cnf_matrix)
+            TN = cnf_matrix.sum() - (FP + FN + TP)
+            print('TPR:', np.mean(TP / (TP + FN)))
+            print('FPR:', np.mean(FP / (FP + TN)))
+
+
+        else:
+            print("Public samples are not exist, use CMD4 to create public data.")

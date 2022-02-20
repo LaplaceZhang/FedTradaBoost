@@ -21,8 +21,8 @@ DDoS = 'DDoS.csv'  # 1000 normal + 4000 DDoS
 Port = 'Port.csv'  # 2000 normal + 3000 Port
 Bruf = 'Bruf.csv'  # 3000 normal + 2000 BruF
 Infi = 'Inf.csv'  # 3000 normal + 2000 Infi
-Test = 'Test.csv'  # 2500+1000+1000+1000+1000+1000 all six types, change num of class when create this dataset
-LocalData = 'local17_12.csv'
+Test = 'Test18_12.csv'  # 2500+1000+1000+1000+1000+1000 all six types, change num of class when create this dataset
+LocalData = 'local4.csv'
 
 
 def append_feature(dataframe, istest):
@@ -45,7 +45,7 @@ def append_feature(dataframe, istest):
 
 train_target = pd.DataFrame(pd.read_csv(root_path + LocalData))  # Target
 # Manually set a weak dataset for the target so we can show the advantages of transfer
-train_target = train_target
+train_target = train_target.sample(1000)
 train_target.fillna(value=0, inplace=True)
 train_source = pd.DataFrame(pd.read_csv(root_path + PublicData))  # Source
 train_source.fillna(value=0, inplace=True)

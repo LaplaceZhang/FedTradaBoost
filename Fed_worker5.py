@@ -9,6 +9,7 @@ from sklearn import metrics
 import Fed_main as tr
 # from sklearn.impute import SimpleImputer
 
+from sklearn.ensemble import RandomForestClassifier  # Adopt Random Forest (RF)
 from sklearn.ensemble import AdaBoostClassifier
 from sklearn.metrics import accuracy_score
 import LocalTrain5 as LTtrain
@@ -55,6 +56,11 @@ def message_handle():
         elif type(received_data) == AdaBoostClassifier:
             print('model received')
             f = open(root_path + Received, 'wb')
+            pickle.dump(received_data, f)
+            f.close()
+        elif type(received_data) == RandomForestClassifier:
+            print('model received')
+            f = open(root_path+Received, 'wb')
             pickle.dump(received_data, f)
             f.close()
         return received_data

@@ -141,11 +141,8 @@ def adaboost(X, Y, m1, m2):
 
 
 def FedBoost(wts, X, Y, m1, m2):
-    clf = AdaBoostClassifier(tree.DecisionTreeClassifier(max_depth=2,
-                                                         min_samples_split=20,
-                                                         min_samples_leaf=5),
-                             algorithm="SAMME",
-                             n_estimators=500, learning_rate=0.8)
+    clf = RandomForestClassifier(n_estimators=100, max_depth=2, random_state=0)  # RF exp
+
     model = clf.fit(X, Y)
     est_wts1 = m1.estimator_weights_
     est_wts2 = m2.estimator_weights_
@@ -227,11 +224,8 @@ def append_feature(dataframe, istest):
 
 
 def FedRank(X, Y, m1, m2, m3, m4, m5):
-    clf = AdaBoostClassifier(tree.DecisionTreeClassifier(max_depth=2,
-                                                         min_samples_split=20,
-                                                         min_samples_leaf=5),
-                             algorithm="SAMME",
-                             n_estimators=500, learning_rate=0.8)
+    clf = RandomForestClassifier(n_estimators=100, max_depth=2, random_state=0)  # RF exp
+
     model = clf.fit(X, Y)
     wts1 = m1.estimator_weights_
     wts2 = m2.estimator_weights_
@@ -299,29 +293,29 @@ def FedAggDT(m1, m2, m3, m4, m5):
     :param m5: model from client 5
     :return: aggregated model m0 as for the public model in new iteration of training (OR output without )
 
-    Here I list some parameters for AdaBoost in scikit-learn which you may need to do average: 
+    Here I list some parameters for AdaBoost in scikit-learn which you may need to do average:
     clf.estimator_weights_ --> ndarray: (500,)
     clf.estimator_errors_ --> ndarray: (500,)
     clf.estimators_ --> list: 500
     clf.feature_importances_ --> ndarray: (79,)
     clf.classes --> ndarray: (6,)
-    As for the parameters in DecisionTree, only need to average the random_state: clf.estimators_[n].random_state 
-    Federated Averaging aims to do average for all unequal parameters in the updated models. 
+    As for the parameters in DecisionTree, only need to average the random_state: clf.estimators_[n].random_state
+    Federated Averaging aims to do average for all unequal parameters in the updated models.
     In AdaBoost+DT, the above parameters are enough for FedAvg.
     """
     clf = m1
-    for i in range(clf.estimator_weights_.shape[0]):
-        clf.estimator_weights_[i] = np.mean([m1.estimator_weights_[i], m2.estimator_weights_[i],
-                                             m3.estimator_weights_[i], m4.estimator_weights_[i],
-                                             m5.estimator_weights_[i]])
-    for i in range(clf.estimator_errors_.shape[0]):
-        clf.estimator_errors_[i] = np.mean([m1.estimator_errors_[i], m2.estimator_errors_[i],
-                                            m3.estimator_errors_[i], m4.estimator_errors_[i],
-                                            m5.estimator_errors_[i]])
-    for i in range(clf.feature_importances_.shape[0]):
-        clf.feature_importances_[i] = np.mean([m1.feature_importances_[i], m2.feature_importances_[i],
-                                               m3.feature_importances_[i], m4.feature_importances_[i],
-                                               m5.feature_importances_[i]])
+    # for i in range(clf.estimator_weights_.shape[0]):
+    #     clf.estimator_weights_[i] = np.mean([m1.estimator_weights_[i], m2.estimator_weights_[i],
+    #                                          m3.estimator_weights_[i], m4.estimator_weights_[i],
+    #                                          m5.estimator_weights_[i]])
+    # for i in range(clf.estimator_errors_.shape[0]):
+    #     clf.estimator_errors_[i] = np.mean([m1.estimator_errors_[i], m2.estimator_errors_[i],
+    #                                         m3.estimator_errors_[i], m4.estimator_errors_[i],
+    #                                         m5.estimator_errors_[i]])
+    # for i in range(clf.feature_importances_.shape[0]):
+    #     clf.feature_importances_[i] = np.mean([m1.feature_importances_[i], m2.feature_importances_[i],
+    #                                            m3.feature_importances_[i], m4.feature_importances_[i],
+    #                                            m5.feature_importances_[i]])
     for i in range(len(clf.estimators_)):
         clf.estimators_[i].random_state = np.mean([m1.estimators_[i].random_state, m2.estimators_[i].random_state,
                                                    m3.estimators_[i].random_state, m4.estimators_[i].random_state,
@@ -518,25 +512,22 @@ def slim_model(path, T, clf0, clf1, clf2, clf3, clf4):
     :param clf4: updated model 4 (500)
     :return: specialized model for single attack (100)
     """
-    clf = AdaBoostClassifier(tree.DecisionTreeClassifier(max_depth=2,
-                                                         min_samples_split=20,
-                                                         min_samples_leaf=5),
-                             algorithm="SAMME",
-                             n_estimators=100, learning_rate=0.8)
+    clf = RandomForestClassifier(n_estimators=10, max_depth=2, random_state=0)  # RF exp
+
     X, Y = DataFrame_loader(path + T)
     model = clf.fit(X, Y)
-    wts0 = clf0.estimator_weights_
-    wts1 = clf1.estimator_weights_
-    wts2 = clf2.estimator_weights_
-    wts3 = clf3.estimator_weights_
-    wts4 = clf4.estimator_weights_
-    N = wts0.shape[0]
-    est_wts = np.concatenate((wts0, wts1, wts2, wts3, wts4), axis=0)
+    # wts0 = clf0.estimator_weights_
+    # wts1 = clf1.estimator_weights_
+    # wts2 = clf2.estimator_weights_
+    # wts3 = clf3.estimator_weights_
+    # wts4 = clf4.estimator_weights_
+    N = 50  # number of estimators in Random Forest (100)
+    # est_wts = np.concatenate(5*N, axis=0)
     # est_wts = np.append(wts0, wts1)
     UpdatedBaseEst = []
-    UpdatedBaseWet = np.zeros(wts0.shape[0], )
-    UpdatedErr = np.zeros(wts0.shape[0], )
-    score = np.zeros(est_wts.shape[0])
+    UpdatedBaseWet = np.zeros(N, )
+    UpdatedErr = np.zeros(N, )
+    score = np.zeros(5 * N)
     for i in range(0, N):
         score[i] = clf0.estimators_[i].score(X, Y)
     for i in range(N, 2 * N):
@@ -547,33 +538,23 @@ def slim_model(path, T, clf0, clf1, clf2, clf3, clf4):
         score[i] = clf3.estimators_[i - 3 * N].score(X, Y)
     for i in range(4 * N, 5 * N):
         score[i] = clf4.estimators_[i - 4 * N].score(X, Y)
-    rank = np.argsort(score)[::-1][0:100]  # 100 base_estimators only
+    rank = np.argsort(score)[::-1][0:10]  # 10 base_estimators only
 
     for i in range(rank.shape[0]):
         if rank[i] in range(0, N):
-            UpdatedBaseEst.append(clf0.estimators_[rank[i]])
-            UpdatedBaseWet[i] = clf0.estimator_weights_[rank[i]]
-            UpdatedErr[i] = clf0.estimator_errors_[rank[i]]
+            model.estimators_[i].random_state = clf0.estimators_[rank[i]].random_state
         elif rank[i] in range(N, 2 * N):
-            UpdatedBaseEst.append(clf1.estimators_[rank[i] - N])
-            UpdatedBaseWet[i] = clf1.estimator_weights_[rank[i] - N]
-            UpdatedErr[i] = clf1.estimator_errors_[rank[i] - N]
+            model.estimators_[i].random_state = clf1.estimators_[rank[i] - N].random_state
         elif rank[i] in range(2 * N, 3 * N):
-            UpdatedBaseEst.append(clf2.estimators_[rank[i] - 2 * N])
-            UpdatedBaseWet[i] = clf2.estimator_weights_[rank[i] - 2 * N]
-            UpdatedErr[i] = clf2.estimator_errors_[rank[i] - 2 * N]
+            model.estimators_[i].random_state = clf2.estimators_[rank[i] - 2 * N].random_state
         elif rank[i] in range(3 * N, 4 * N):
-            UpdatedBaseEst.append(clf3.estimators_[rank[i] - 3 * N])
-            UpdatedBaseWet[i] = clf3.estimator_weights_[rank[i] - 3 * N]
-            UpdatedErr[i] = clf3.estimator_errors_[rank[i] - 3 * N]
+            model.estimators_[i].random_state = clf3.estimators_[rank[i] - 3 * N].random_state
         else:
-            UpdatedBaseEst.append(clf4.estimators_[rank[i] - 4 * N])
-            UpdatedBaseWet[i] = clf4.estimator_weights_[rank[i] - 4 * N]
-            UpdatedErr[i] = clf4.estimator_errors_[rank[i] - 4 * N]
+            model.estimators_[i].random_state = clf4.estimators_[rank[i] - 4 * N].random_state
 
-    model.estimators_ = UpdatedBaseEst
-    model.estimator_weights_ = UpdatedBaseWet
-    model.estimator_errors_ = UpdatedErr
+    # model.estimators_ = UpdatedBaseEst
+    # model.estimator_weights_ = UpdatedBaseWet
+    # model.estimator_errors_ = UpdatedErr
     return model
 
 
