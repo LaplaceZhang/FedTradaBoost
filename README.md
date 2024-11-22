@@ -55,10 +55,10 @@ containing 100 base_estimators, run 30 iterations on each device, each round.
 
 ### PAPER SUPPORT
 
-Not released yet :no_entry_sign:
+Able to view on IEEE Transactions on Industrial Informatics :christmas_tree:
 
 ***
 
-### To contact
+### To Contact
 
 If you have any problems using this code, you may raise an issue on [GITHUB](https://github.com/LaplaceZhang/FedTradaBoost).
