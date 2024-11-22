@@ -65,4 +65,4 @@ If you have any problems using this code, you may raise an issue on [GITHUB](htt
 
 ### Notice
 
-This is an ancient project that has not been updated for years. It worked well on old platforms, which may not be suitable for the current version of Python. Feel free to give this a shot (If you wish to:hugs:), but the author does not guarantee this project will work fluently. 
+This is an ancient project that has not been updated for years. It worked well on old platforms, which may not be suitable for the current version of Python. Feel free to give this a shot (If you wish to :hugs:), but the author does not guarantee this project will work fluently. 
